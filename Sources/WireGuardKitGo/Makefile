@@ -21,6 +21,13 @@ GOARCH_x86_64 := amd64
 GOOS_macosx := darwin
 GOOS_iphoneos := ios
 
+# WORKAROUND TO ALLOW SIMULATORS BUILDS
+UNAME := $(shell uname -m)
+ifeq ($(UNAME), $(GOARCH_arm64))
+    GOOS_iphonesimulator := ios
+endif
+# WORKAROUND TO ALLOW SIMULATORS BUILDS
+
 build: $(DESTDIR)/libwg-go.a
 version-header: $(DESTDIR)/wireguard-go-version.h
 
